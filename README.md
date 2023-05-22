@@ -4,11 +4,11 @@ This repository has been forked from the [Azure load test demo](https://github.c
 
 It uses the sample application and sample load test script in this repository as a starting point.
 
-The demonstration application is an web app hosted in Azure App Services with a Cosmos Database backend. 
+The demonstration application is a web app hosted in Azure App Services with a Cosmos Database backend. 
 
 The mission is to see if you can get **500 requests per second** from this application without spending more money than is necessary on the Azure resources.
 
-The final challenge is about adapting this to one of your own application or service.
+The final challenge is about adapting this to one of your own applications or services.
 
 
 
@@ -42,7 +42,7 @@ You need to decide which destination suits you best. Azure Cloud Shell should ha
 git clone https://github.com/jometzg/nodejs-appsvc-cosmosdb-bottleneck.git
 ```
 
-2. In your terminal window, log into Azure and set a subscription(subscription which would contain the webapp) :
+2. In your terminal window, log into Azure and set a subscription (subscription which would contain the webapp):
 
         az login
         az account set -s mySubscriptionName
@@ -56,7 +56,7 @@ git clone https://github.com/jometzg/nodejs-appsvc-cosmosdb-bottleneck.git
         cd SampleApp
         .\deploymentscript.ps1
 
-5. You will be prompted to supply a unique application name and a location (default is `eastus`). **It is best to leave this at 'eastus'**. A resource group for the resources would be created with the same name.
+5. You will be prompted to supply a unique application name and a location (default is `eastus`). **It is best to leave this as 'eastus'**. A resource group for the resources would be created with the same name.
 6. Once deployment is complete, browse to the running sample application with your browser.
 
         https://<app_name>.azurewebsites.net
@@ -69,7 +69,7 @@ Once deployed, discuss:
 
 # Challenge Three - Run a load test against the application
 
-In this challenge, we are going to use the JMeter JMX file from the cloned GitHub repo. This makes a series of requests against the application. So you load test will need to use this script for this challenge.
+In this challenge, we are going to use the JMeter JMX file from the cloned GitHub repo. This makes a series of requests against the application. So your load test will need to use this script for this challenge.
 
 Follow the [steps](https://docs.microsoft.com/en-gb/azure/load-testing/how-to-create-and-run-load-test-with-jmeter-script#create-a-load-test) to configure a load test in the load test resource you created in challenge one.
 
@@ -81,7 +81,7 @@ The SampleApp.JMX file is parameterised, so that the URL of the target applicati
 
 ![alt-text](img/azure-load-test-parameters.png "set a parameter for the load test")
 
-Make sure to also set the monitoring to point to your applications resources. This will allow Azure load testing to capture metrics from this application.
+Make sure to also set the monitoring to point to your application's resources. This will allow Azure load testing to capture metrics from this application.
 
 ![alt-text](img/azure-load-test-monitoring.png "Set monitoring for the load test")
 
@@ -90,10 +90,10 @@ Once the configuration is complete. If the load test has not started, press "Run
 ![alt-text](img/azure-load-test-run.png "load test run")
 
 Look closely at the results from the run. Some discussion points:
-1. What is the overall request rate
-2. Is this what is needed
+1. What is the overall request rate?
+2. Is this what is needed?
 3. Are there any errors? If, so any ideas why?
-4. Look at the Cosmos database metrics
+4. Look at the Cosmos database metrics.
 
 The next step will be to tune the application and re-test to see if we can meet the original target request rate.
 
@@ -102,11 +102,11 @@ The next step will be to tune the application and re-test to see if we can meet 
 
 For this challenge, we need to be able to hit a higher request rate. Some things to think about:
 
-1. How can we drive more requests into the application
+1. How can we drive more requests into the application?
 2. What can we alter on the application to improve its throughput?
 3. Remember, the application should not be over provisioned as that is a waste of money.
 
-What needed to change to achieve the desired request rate?
+What needs to change to achieve the desired request rate?
 
 When you do multiple test runs, these will all be listed under the same test. You can use the description field to annotate the tests to summarise the changes.
 
@@ -125,7 +125,7 @@ You can also compare different runs to see their differences. This is really use
 
 You will need to think about:
 1. In which GitHub repository to run the action
-2. when the action will run
+2. When the action will run
 3. How the action step is authenticated
 4. How to drive parameters into the test
 5. How to set success criteria
@@ -191,7 +191,7 @@ The workflow has three steps:
 2. Run the load test using the "SampleApp.yaml" - which references the JMeter test file "SampleAppParam.xml"
 3. Upload the results
 
-The heart of the load test configuration is the YAML file. It is this that defines the load test to be run
+The heart of the load test configuration is the YAML file. It is this that defines the load test to be run.
 
 ```
 version: v0.1
@@ -210,7 +210,7 @@ If all is correctly configured, any change to the repository will cause the GitH
 
 So, now we have a working test that can be run interactively or as part of CI/CD pipeline.
 
-If you have managed to this successfully, all that is left is to apply this to your own application.
+If you have managed to do this successfully, all that is left is to apply this to your own application.
 
 
 
