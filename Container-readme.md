@@ -10,7 +10,7 @@ The mission is to see if you can get **500 requests per second** from this appli
 
 The final challenge is about adapting this to one of your own application or service.
 
-**in this version we will deploy the application manually to avoid issues with naming conventions and policies that bar basic authentication. These instructions used a containerised version of the application that has been placed on a public repo to make it straightword to deploy**
+**In this version we will deploy the application manually to avoid issues with naming conventions and policies that bar basic authentication. These instructions used a containerised version of the application that has been placed on the public Docker Hub to make it straightword to deploy**
 
 # Challenge One - Create Load Test Resource
 
@@ -27,34 +27,31 @@ So, now we have a load testing service and we have tested it out against a URL, 
 
 This challenge is about having our own application to test that we can later change to meet our performance requirements.
 
-On a Windows PC, there are three possible destinations for the code:
-1. Directly on the Windows PC file system
-2. In a Windows Subsystem for Linux (WSL) session
-3. Azure Cloud Shell
+All of the steps can be done in the Azure portal. There is no need for a command prompt or development environment. You can therefore choose your own naming convention for the web application and Cosmos database, but there are limits on which regions Azure CosmosDB for MongoDB can be deployed. North Europe is a good option. It also makes sense to deploy the app into the same region.
 
-You need to decide which destination suits you best. Azure Cloud Shell should have all of the tooling installed already.
+## Detailed steps
 
-## Installation
+### Create a resource group
+In the Azure portal, create a resource group in your naming convention. it is suggested that this is in the **North Europe** region.
 
-1. Clone this GitHub repository to your PC
+Both the application and the load test instance can be provisioned into this resource group.
 
-```
-git clone https://github.com/jometzg/nodejs-appsvc-cosmosdb-bottleneck.git
-```
+### Azure CosmosDB for MongoDB
+In the resource group use the **Create** button to bring up the Marketplace.
 
-2. In your terminal window, log into Azure and set a subscription(subscription which would contain the webapp) :
+In the search type **Cosmos** and you should see in the list "Azure CosmosDB for MongoDB", when the tile for this appears, hit "Create"
+![alt-text](images/select-cosmos.png "Select Azure CosmosDB for MongoDB")
 
-        az login
-        az account set -s mySubscriptionName
+This will bring up a wizard.
+1. in the next step pick **Request unit (RU) database account**
+2. Enter an account name that meets your naming convention and is unique
+3. Choose the region **North Europe**
+4. Leave the other settings
+5. Hit **Review and Create**
+6. If the validation succeeds, hit **Create**
+7. This should take a few minutes to provision
 
-3. Clone the sample application's source repository. The sample application is a Node.js app consisting of an Azure App Service web component and a Cosmos DB database. The repo also contains a PowerShell script that deploys the sample app to your Azure subscription.
-
-        git clone https://github.com/jometzg/nodejs-appsvc-cosmosdb-bottleneck.git
-
-4. Deploy the sample app using the PowerShell script. (Tip: macOS users can install PowerShell [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-macos?view=powershell-7.1))
-
-        cd SampleApp
-        .\deploymentscript.ps1
+### Web app and its service plan
 
 5. You will be prompted to supply a unique application name and a location (default is `eastus`). **It is best to leave this at 'eastus'**. A resource group for the resources would be created with the same name.
 6. Once deployment is complete, browse to the running sample application with your browser.
