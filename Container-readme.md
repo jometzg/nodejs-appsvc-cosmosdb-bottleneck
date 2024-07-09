@@ -40,7 +40,8 @@ Both the application and the load test instance can be provisioned into this res
 In the resource group use the **Create** button to bring up the Marketplace.
 
 In the search type **Cosmos** and you should see in the list "Azure CosmosDB for MongoDB", when the tile for this appears, hit "Create"
-![alt-text](images/select-cosmos.png "Select Azure CosmosDB for MongoDB")
+
+![alt-text](./img/select-cosmos.png "Select Azure CosmosDB for MongoDB")
 
 This will bring up a wizard.
 1. in the next step pick **Request unit (RU) database account**
