@@ -18,7 +18,7 @@ This may be done in the Azure portal or using automation. You could also try the
 
 ![alt text](https://docs.microsoft.com/en-us/azure/load-testing/media/quickstart-create-and-run-load-test/quick-test-resource-overview.png "Quick start page")
 
-You need to consider the location of the load testing service with respect to the target system's location. Discuss why this may be important.
+You need to consider the location of the load testing service with respect to the target system's location. Discuss why this may be important. There may be limitations on the location of the database, so it is suggested that a resource group is created and all resources are put in that region. As safe bet is **North Europe**. 
 
 So, now we have a load testing service and we have tested it out against a URL, now let's deploy an application in the next challenge.
 
@@ -30,11 +30,6 @@ This challenge is about having our own application to test that we can later cha
 All of the steps can be done in the Azure portal. There is no need for a command prompt or development environment. You can therefore choose your own naming convention for the web application and Cosmos database, but there are limits on which regions Azure CosmosDB for MongoDB can be deployed. North Europe is a good option. It also makes sense to deploy the app into the same region.
 
 ## Detailed steps
-
-### Create a resource group
-In the Azure portal, create a resource group in your naming convention. it is suggested that this is in the **North Europe** region.
-
-Both the application and the load test instance can be provisioned into this resource group.
 
 ### Azure CosmosDB for MongoDB
 In the resource group use the **Create** button to bring up the Marketplace.
@@ -54,10 +49,50 @@ This will bring up a wizard.
 
 ### Web app and its service plan
 
-5. You will be prompted to supply a unique application name and a location (default is `eastus`). **It is best to leave this at 'eastus'**. A resource group for the resources would be created with the same name.
-6. Once deployment is complete, browse to the running sample application with your browser.
+The web application needs to be created, code deployed for the application and then some configuration so that the code can access the database.
 
-        https://<app_name>.azurewebsites.net
+It  is suggested the web app is deployed in the same region as the database. **North Europe** is suggested.
+
+1. In the resource group use the **Create** button to bring up the Marketplace.
+2. In the search type **web app** and you should see in the list "Azure CosmosDB for MongoDB", when the tile for this appears, hit "Create"
+
+![alt-text](./img/select-web-app.png "Select Azure Web App")
+
+3. There is a multi-page wizard and the main sections are the basics and container sections.
+
+![alt-text](./img/create-web-app-basic.png "Create Web App - Basics")
+   
+6. In the above you need to make sure that you choose a unique name that matches your naming convention
+7. Choose the Container option
+8. Linux
+9. The region - suggested **North Europe**
+10. Create new Linux plan with a name of your choosing and Basic B1 tier.
+11. Move to the container tab 
+
+![alt-text](./img/create-web-app-container.png "Create Web App - Container")
+
+This is where you choose the container settings. They need to be:
+
+12. Image source needs to be Docker Hub or other registries
+13. Single Container
+14. Leave registry server URL as-is
+15. Image and tag needs to be **johnm60/node-app-cosmos:latest**
+16. Press **Review and Create**
+17. If validation succeeds, the **Create**
+18. The application will take a few minutes to provision.
+
+### Configuring the web app
+After deployment, the application should exist and it should pull a container image of the code to allow the app to run inside the web application. The application creates items in the Cosmos database and so needs to have a setting that points to the connection string of the Cosmos database.
+
+1. Open up the web app settings
+2. Select **Environment variables**
+3. In this section, press **Add+** and this should allow you to enter a name and value
+4. The name is **CONNECTION_STRING**
+5. The value can now be got from the Cosmos database **Connection Strings** and then **Primary Connection String** - it is suggested that it is easiest to grab this value in another browser tab.
+6. The changes need to be accepted and now the application (after a couple of minutes) should be working.
+7. Test the application by going to its URL on its main summary. It should look like below:
+
+![alt-text](./img/test-web-app.png "Test Web App")
 
 ## Discussion
 Once deployed, discuss:
