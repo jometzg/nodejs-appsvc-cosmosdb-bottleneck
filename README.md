@@ -10,7 +10,7 @@ The mission is to see if you can get **500 requests per second** from this appli
 
 The final challenge is about adapting this to one of your own application or service.
 
-
+**There is an alternative deployment mechanism, that uses a pre-published container that can be used. Look [here](./Container-readme.md)** 
 
 # Challenge One - Create Load Test Resource
 
