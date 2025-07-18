@@ -1,0 +1,18 @@
+### these should be the REST requests that the JMX executes
+###
+### parameters
+@baseUrl = XXXXXX.azurewebsites.net
+
+### send a GET request to the specified URL
+GET https://{{baseUrl}}/get
+Accept: application/json
+
+### send a GET request to the specified URL
+GET https://{{baseUrl}}/lasttimestamp
+Accept: application/json
+
+### POST request to create a new item
+POST https://{{baseUrl}}/add
+Content-Type: text/plain
+
+1
